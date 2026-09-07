@@ -20,6 +20,10 @@ export default function NewReservation({ onSubmit, currentUser }) {
       setError('件名を入力してください。')
       return
     }
+    if (form.end <= form.start) {
+      setError('结束时间必须晚于开始时间。')
+      return
+    }
     setError('')
     onSubmit({ ...form, owner: currentUser })
   }
@@ -55,7 +59,7 @@ export default function NewReservation({ onSubmit, currentUser }) {
           </label>
           <label className="field">
             <span>終了</span>
-            <input type="time" value={form.end} onChange={(e) => update('end', e.target.value)} />
+            <input type="time" value={form.end} min={form.start} onChange={(e) => update('end', e.target.value)} />
           </label>
         </div>
 
