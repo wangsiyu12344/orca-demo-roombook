@@ -20,6 +20,10 @@ export default function NewReservation({ onSubmit, currentUser }) {
       setError('件名を入力してください。')
       return
     }
+    if (form.end <= form.start) {
+      setError('終了時間は開始時間より後にしてください。')
+      return
+    }
     setError('')
     onSubmit({ ...form, owner: currentUser })
   }
